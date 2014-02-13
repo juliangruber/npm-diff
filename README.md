@@ -18,6 +18,8 @@ $ npm-diff
 Usage: npm-diff <module> <versionA> <versionB>
 ```
 
+  `npm-diff(1)` outputs regular `diff(1)` content so it plays nice with other tooling.
+
 ## Tips
 
   Page big diffs:
