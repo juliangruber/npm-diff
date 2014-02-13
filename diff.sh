@@ -17,11 +17,20 @@ a=/tmp/$RANDOM
 b=/tmp/$RANDOM
 mkdir $a $b
 
-# checkout
+# download
 
 registry=`npm config get registry`
-(cd $a && curl --silent $registry$module/-/$module-$versionA.tgz | tar -zx) &
-(cd $b && curl --silent $registry$module/-/$module-$versionB.tgz | tar -zx) &
+
+download(){
+  cd $1
+  curl --silent $registry$module/-/$module-$2.tgz | tar -xz
+  folder=`ls`
+  mv $folder/* ./
+  rm -Rf $folder
+}
+
+download $a $versionA &
+download $b $versionB &
 wait
 
 # diff
@@ -31,8 +40,7 @@ diff \
   --unified \
   --exclude test \
   --exclude Makefile \
-  $a/package \
-  $b/package \
+  $a $b \
   | egrep -v "\"readme\"|\"_id\"|\"_from\"|\"_resolved\""
 
 # cleanup
