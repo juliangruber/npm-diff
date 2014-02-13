@@ -35,7 +35,7 @@ wait
 
 # diff
 
-cdiff -u $a/node_modules/$module $b/node_modules/$module | egrep -v "\"readme\"|\"_id\"|\"_from\""
+cdiff -u $a/node_modules/$module $b/node_modules/$module | egrep -v "\"readme\"|\"_id\"|\"_from\"|\"_resolved\""
 
 # cleanup
 
