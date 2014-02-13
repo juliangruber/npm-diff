@@ -1,5 +1,12 @@
 #!/usr/bin/env bash -e
 
+#
+# npm-diff(1)
+#
+# MIT licensed
+# (c) 2014 Segment.io <friends@segment.io>
+#
+
 # arguments
 
 if [[ $# != 3 ]]; then
