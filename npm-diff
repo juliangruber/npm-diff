@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
 
 #
 # npm-diff(1)
@@ -6,6 +6,8 @@
 # MIT licensed
 # (c) 2014 Segment.io <friends@segment.io>
 #
+
+set -e
 
 # arguments
 
