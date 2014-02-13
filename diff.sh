@@ -19,8 +19,9 @@ mkdir $a $b
 
 # checkout
 
-(cd $a; npm install $module@$versionA > /dev/null) &
-(cd $b; npm install $module@$versionB > /dev/null) &
+registry=`npm config get registry`
+(cd $a && curl --silent $registry$module/-/$module-$versionA.tgz | tar -zx) &
+(cd $b && curl --silent $registry$module/-/$module-$versionB.tgz | tar -zx) &
 wait
 
 # diff
@@ -29,10 +30,9 @@ diff \
   --recursive \
   --unified \
   --exclude test \
-  --exclude node_modules \
   --exclude Makefile \
-  $a/node_modules/$module \
-  $b/node_modules/$module \
+  $a/package \
+  $b/package \
   | egrep -v "\"readme\"|\"_id\"|\"_from\"|\"_resolved\""
 
 # cleanup
