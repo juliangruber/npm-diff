@@ -8,29 +8,30 @@ if [ "$#" -ne 3 ]; then
 fi
 
 module=$1
-versionA=$2
-versionB=$3
+a=$2
+b=$3
 
-# work dirs
+# work dir
 
-a=/tmp/$RANDOM
-b=/tmp/$RANDOM
-mkdir $a $b
+work=/tmp/$RANDOM
+mkdir $work
+cd $work
 
 # download
 
 registry=`npm config get registry`
 
 download(){
+  mkdir $1
   cd $1
-  curl --silent $registry$module/-/$module-$2.tgz | tar -xz
+  curl --silent $registry$module/-/$module-$1.tgz | tar -xz
   folder=`ls`
   mv $folder/* ./
   rm -Rf $folder
 }
 
-download $a $versionA &
-download $b $versionB &
+download $a &
+download $b &
 wait
 
 # diff
@@ -45,5 +46,5 @@ diff \
 
 # cleanup
 
-rm -Rf $a $b
+rm -Rf $work
 
