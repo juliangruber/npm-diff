@@ -26,7 +26,11 @@ wait
 # diff
 
 diff \
+  --recursive \
   --unified \
+  --exclude test \
+  --exclude node_modules \
+  --exclude Makefile \
   $a/node_modules/$module \
   $b/node_modules/$module \
   | egrep -v "\"readme\"|\"_id\"|\"_from\"|\"_resolved\""
