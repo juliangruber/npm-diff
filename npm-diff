@@ -32,8 +32,14 @@ download(){
   version=$1
   mkdir $version
   cd $version
+
+  user=""
+  if [ "$(npm config get always-auth)" == "true" ]; then
+    user="--user $(cat ~/.npmrc | grep _auth | cut -d' ' -f3 | base64 --decode)"
+  fi
+
   url=$(npm show $module@$version dist.tarball 2>/dev/null)
-  curl --fail --silent --insecure $url | tar -xz --strip 1
+  curl --fail --silent --insecure $user $url | tar -xz --strip 1
   if [[ ${PIPESTATUS[0]} != 0 ]]; then
     echo "Unknown version: $module@$1"
     exit 1
