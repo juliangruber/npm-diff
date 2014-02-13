@@ -2,7 +2,7 @@
 
 # arguments
 
-if [ "$#" -ne 3 ]; then
+if [[ $# != 3 ]]; then
   echo "Usage: npm-diff <module> <versionA> <versionB>"
   exit
 fi
@@ -24,15 +24,17 @@ registry=`npm config get registry`
 download(){
   mkdir $1
   cd $1
-  curl --silent $registry$module/-/$module-$1.tgz | tar -xz
-  folder=`ls`
-  mv $folder/* ./
-  rm -Rf $folder
+  curl --fail --silent $registry$module/-/$module-$1.tgz | tar -xz --strip 1
+  if [[ ${PIPESTATUS[0]} != 0 ]]; then
+    echo "Unknown version: $module@$1"
+    exit 1
+  fi
 }
 
 download $a &
 download $b &
-wait
+
+for job in `jobs -p`; do wait $job || exit 1; done
 
 # diff
 
