@@ -14,7 +14,8 @@ $ make install
 ## Usage
 
 ```bash
-$ npm-diff intersect 0.0.1 0.0.2
+$ npm-diff
+Usage: npm-diff <module> <versionA> <versionB>
 ```
 
 ## Tips
