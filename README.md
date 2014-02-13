@@ -1,7 +1,7 @@
 
 # npm-diff(1)
 
-  `diff` the contents of two versions of a node module.
+  Get changes between two versions of a node module.
 
   ![screenshot](https://i.cloudup.com/RgiBccKvdt.png)
 
