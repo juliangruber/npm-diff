@@ -35,7 +35,7 @@ wait
 
 # diff
 
-cdiff -u -x package.json -x component.json $a/node_modules/$module $b/node_modules/$module
+cdiff -u $a/node_modules/$module $b/node_modules/$module | egrep -v "\"readme\"|\"_id\"|\"_from\""
 
 # cleanup
 
