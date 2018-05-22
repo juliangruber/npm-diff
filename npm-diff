@@ -5,6 +5,7 @@
 #
 # MIT licensed
 # (c) 2014 Segment.io <friends@segment.io>
+# (c) 2018 Julian Gruber <mail@juliangruber.com>
 #
 
 set -e
