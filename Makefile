@@ -1,6 +1,6 @@
 
 PREFIX ?= /usr/local
-CD_VERSION ?= 1.0.18
+SO := $(shell uname)
 
 install: npm-diff
 	cp $< $(PREFIX)/bin/$<
@@ -10,9 +10,15 @@ uninstall:
 
 .PHONY: install uninstall
 
+colordiff_linux:
+	apt-get install colordiff --allow-unauthenticated -y
+
+colordiff_mac:
+	brew install colordiff
+
 colordiff:
-	wget https://www.colordiff.org/colordiff-$(CD_VERSION).tar.gz
-	tar -xzf colordiff-$(CD_VERSION).tar.gz
-	cd colordiff-$(CD_VERSION)/ && make install
-	rm -rf colordiff-$(CD_VERSION)/
-	rm colordiff-$(CD_VERSION).tar.gz
+ifeq ($(SO), Linux)
+	make colordiff_linux
+else
+	make colordiff_mac
+endif
