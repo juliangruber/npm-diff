@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 #
-# npm-diff(1)
+# npm-diff(2)
 #
 # MIT licensed
 # (c) 2014 Segment.io <friends@segment.io>
 # (c) 2018 Julian Gruber <mail@juliangruber.com>
+# (c) 2019 Daniel Venturini <danielventurini@alunos.utfpr.edu.br>
 #
 
 set -e
@@ -65,4 +66,3 @@ diff \
 # cleanup
 
 rm -Rf $work
-

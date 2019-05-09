@@ -1,5 +1,5 @@
 
-# npm-diff(1)
+# npm-diff(2)
 
   Diff two versions of a node module.
 
