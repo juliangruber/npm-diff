@@ -28,7 +28,26 @@ work=/tmp/$RANDOM
 mkdir $work
 cd $work
 
+# get the url when was passed a range version
+#get_url() {
+#  version=$1
+#  urls=$(npm show $module@$version dist.tarball 2>/dev/null)
+#}
 # download
+
+get_url() {
+  version=$1
+  url=""
+  urls=$(npm show $module@$version dist.tarball >$work/$version/urls)
+  input="$work/$version/urls"
+
+  while IFS= read -r var
+  do
+    url=$var
+  done < "$input"
+
+  retval=$url
+}
 
 download(){
   version=$1
@@ -40,7 +59,8 @@ download(){
     user="--user $(cat ~/.npmrc | grep _auth | cut -d' ' -f3 | base64 --decode)"
   fi
 
-  url=$(npm show $module@$version dist.tarball 2>/dev/null)
+  get_url $version
+  url=$retval
   curl --fail --silent --insecure $user $url | tar -xz --strip 1
   if [[ ${PIPESTATUS[0]} != 0 ]]; then
     echo "Unknown version: $module@$1"
