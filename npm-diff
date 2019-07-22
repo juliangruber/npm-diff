@@ -20,6 +20,8 @@ fi
 module=$1
 a=$2
 b=$3
+aurl=$(npm show $module@$a dist.tarball 2>/dev/null)
+burl=$(npm show $module@$b dist.tarball 2>/dev/null)
 
 # work dir
 
@@ -31,6 +33,7 @@ cd $work
 
 download(){
   version=$1
+  url=$2
   mkdir $version
   cd $version
 
@@ -39,7 +42,6 @@ download(){
     user="--user $(cat ~/.npmrc | grep _auth | cut -d' ' -f3 | base64 --decode)"
   fi
 
-  url=$(npm show $module@$version dist.tarball 2>/dev/null)
   curl --fail --silent --insecure $user $url | tar -xz --strip 1
   if [[ ${PIPESTATUS[0]} != 0 ]]; then
     echo "Unknown version: $module@$1"
@@ -47,8 +49,8 @@ download(){
   fi
 }
 
-download $a &
-download $b &
+download $a $aurl &
+download $b $burl &
 
 for job in `jobs -p`; do wait $job || exit 1; done
 
