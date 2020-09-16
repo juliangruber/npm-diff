@@ -1,0 +1,29 @@
+{
+  "name": "npm-diff",
+  "version": "0.0.0",
+  "description": "Diff two versions of a node module",
+  "bin": "npm-diff",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliangruber/npm-diff.git"
+  },
+  "keywords": [
+    "npm",
+    "diff",
+    "difference",
+    "version",
+    "versions",
+    "compare",
+    "changes",
+    "package",
+    "module"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juliangruber/npm-diff/issues"
+  },
+  "homepage": "https://github.com/juliangruber/npm-diff#readme"
+}
