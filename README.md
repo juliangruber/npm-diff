@@ -7,6 +7,23 @@
 
 ## Installation
 
+Either preinstall using one of the methods described below, or use `npx`
+to install/run `npm-diff` on demand:
+
+```bash
+npx npm-diff
+```
+
+### Globally installed as npm module
+
+```bash
+npm install npm-diff -g
+```
+
+### Manual install
+
+Clone this repository and run:
+
 ```bash
 $ make install
 ```
