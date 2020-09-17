@@ -4,6 +4,7 @@
   "description": "Diff two versions of a node module",
   "bin": "npm-diff",
   "scripts": {
+    "release": "np",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/juliangruber/npm-diff/issues"
   },
-  "homepage": "https://github.com/juliangruber/npm-diff#readme"
+  "homepage": "https://github.com/juliangruber/npm-diff#readme",
+  "devDependencies": {
+    "np": "^6.5.0"
+  }
 }
