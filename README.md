@@ -45,12 +45,7 @@ Usage: npm-diff <module> <versionA> <versionB>
 $ npm-diff intersect 0.0.0 0.1.0 | less
 ``` 
 
-  Pipe to [colordiff](http://www.colordiff.org) for colored git like diffs:
-
-```bash
-$ npm-diff intersect 0.0.0 0.1.0 | colordiff | less -R
-```
-
+  If [colordiff](http://www.colordiff.org) is installed, the output will be colored.
 ## Sponsors
 
 This module is proudly supported by my [Sponsors](https://github.com/juliangruber/sponsors)!
