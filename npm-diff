@@ -10,11 +10,29 @@
 
 set -e
 
+color=false
+while getopts ":c" opt
+do
+  case $opt in
+    c|color)
+    color=true
+    shift
+    ;;
+  esac
+done
+
 # arguments
 
 if [[ $# != 3 ]]; then
-  echo "Usage: npm-diff <module> <versionA> <versionB>"
+  echo "Usage: npm-diff [-c] <module> <versionA> <versionB>"
+  echo "Example: npm-diff intersect 0.0.0 0.1.0"
+  echo "Example with color output (needs colordiff): npm-diff -c intersect 0.0.0 0.1.0"
   exit 1
+fi
+
+if ! [ -x "$(command -v colordiff)" ] && [ "$color" = true ]; then
+    echo "'colordiff' is not installed. Execute the command without color flag or install colordiff"
+    exit
 fi
 
 module=$1
@@ -56,13 +74,19 @@ for job in `jobs -p`; do wait $job || exit 1; done
 
 # diff
 
-diff \
-  --recursive \
-  --unified \
-  --exclude test \
-  --exclude Makefile \
-  $a $b \
-  | egrep -v "\"readme\"|\"_id\"|\"_from\"|\"_resolved\""
+diffCommand='diff 
+  --recursive 
+  --unified 
+  --exclude test 
+  --exclude Makefile 
+  $a $b 
+  | egrep -v "\"readme\"|\"_id\"|\"_from\"|\"_resolved\""'
+
+if [ "$color" = true ] ; then
+    diffCommand+="| colordiff"
+fi
+
+eval $diffCommand
 
 # cleanup
 
