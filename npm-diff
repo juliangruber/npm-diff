@@ -8,12 +8,14 @@
 # (c) 2018 Julian Gruber <mail@juliangruber.com>
 #
 
+
 set -e
 
 # arguments
 
 if [[ $# != 3 ]]; then
   echo "Usage: npm-diff <module> <versionA> <versionB>"
+  echo "Example: npm-diff intersect 0.0.0 0.1.0"
   exit 1
 fi
 
@@ -56,13 +58,20 @@ for job in `jobs -p`; do wait $job || exit 1; done
 
 # diff
 
-diff \
-  --recursive \
-  --unified \
-  --exclude test \
-  --exclude Makefile \
-  $a $b \
-  | egrep -v "\"readme\"|\"_id\"|\"_from\"|\"_resolved\""
+diffCommand='diff 
+  --recursive 
+  --unified 
+  --exclude test 
+  --exclude Makefile 
+  $a $b 
+  | egrep -v "\"readme\"|\"_id\"|\"_from\"|\"_resolved\""'
+
+# If it is running in a terminal AND colordiff is installed, use it
+if [ -t 1 -a -x "$(command -v colordiff)" ]; then
+    diffCommand+="| colordiff"
+fi
+
+eval $diffCommand
 
 # cleanup
 
