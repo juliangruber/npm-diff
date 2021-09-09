@@ -61,6 +61,7 @@ for job in `jobs -p`; do wait $job || exit 1; done
 diffCommand='diff 
   --recursive 
   --unified 
+  --new-file 
   --exclude test 
   --exclude Makefile 
   $a $b 
